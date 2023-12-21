@@ -47,7 +47,7 @@ struct tm getCurrentDateAndTime(){
     return current_date;
 }
 
-int readArrowKeys()
+int readKeyboardInput()
 {
     HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     DWORD NumInputs;
@@ -72,6 +72,11 @@ int readArrowKeys()
                 else if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_RIGHT)
                 {
                     return 2;
+                }
+                else if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_ESCAPE)
+                {
+                    return 0;
+                    break;
                 }
             }
         }
@@ -233,6 +238,7 @@ void calendar(int year, int month, int daycode)
     printf("\n%s%d%s\n", BLACK_TEXT WHITE_BACKGROUND "---------------- ",
            year,
            " ----------------" RESET);
+    printf("\nPress ESC to go back...");
 }
 
 void shamsiToGregorian(int y, int m, int d, int *gYear, int *gMonth, int *gDay)
@@ -863,15 +869,32 @@ int main(void)
                     shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
                     determineLeapYear(shamsi_year);
 
-                    clearScreen();
-                    calendar(shamsi_year, shamsi_month, shamsi_daycode);
-                    printf("\n");
+                    int arrowResult;
+                    do {
+                        clearScreen();
+                        calendar(shamsi_year, shamsi_month, shamsi_daycode);
+                        printf("\n");
 
-                    printf("Press Enter to continue...");
+                        arrowResult = readKeyboardInput();
 
-                    clearInputBuffer();
-                    getchar();
-                }while (1);
+                        if (arrowResult == 1) {  // Left arrow
+                            shamsi_month--;
+                            if (shamsi_month < 1) {
+                                shamsi_month = 12;
+                                shamsi_year--;
+                            }
+                            shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
+                        } else if (arrowResult == 2) {  // Right arrow
+                            shamsi_month++;
+                            if (shamsi_month > 12) {
+                                shamsi_month = 1;
+                                shamsi_year++;
+                            }
+                            shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
+                        }
+                    } while (arrowResult != 0);
+
+                } while (1);
                 break;
 
             case 2:
