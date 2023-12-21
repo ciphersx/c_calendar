@@ -33,7 +33,16 @@ This program is a command-line tool written in C that serves as a calendar and d
 ## Additional Notes
 
 - **Input Validation:** The program includes input validation to ensure the user enters valid input for years, months, and days.
-- **Clear Screen Function:** The program uses a function to clear the screen for a better user experience.
+- **Calendar Navigation Methods:** The program now supports navigation using arrow keys for a more intuitive user experience. Use the following keys:
+   - **Right Arrow (→):** Navigate to the next Month.
+   - **Left Arrow (←):** Navigate to the previous Month.
+   - **Up Arrow (↑):** Navigate to the next Year.
+   - **Down Arrow (↓):** Navigate to the previous Year.
+   - **ESC:** EXIT the calendar.
+- **Clear Screen Function:** The program uses a function to clear the screen (`system("cls")`), specifically designed for Windows systems. 
+  - If you are using a different operating system, such as Linux or macOS, the clear screen function may not work as intended.
+  - In such cases, you might see the screen cluttered with previous outputs.
+  - Consider using platform-specific commands (e.g., `system("clear")` for Unix-based systems) or rely on alternative methods to improve the user interface.
 
 ## Dependencies
 
