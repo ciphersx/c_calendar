@@ -203,10 +203,10 @@ void calendar(int year, int month, int daycode)
            " ----------------" RESET);
 }
 
-void shamsiToMiladi(int y, int m, int d, int *gYear, int *gMonth, int *gDay)
+void shamsiToGregorian(int y, int m, int d, int *gYear, int *gMonth, int *gDay)
 {
     int sumShamsi[] = {31, 62, 93, 124, 155, 186, 216, 246, 276, 306, 336, 365};
-    int miladiDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    int gregorianDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     int yy, mm, dayCount;
     dayCount = d;
@@ -229,12 +229,12 @@ void shamsiToMiladi(int y, int m, int d, int *gYear, int *gMonth, int *gDay)
     }
 
     if (determineLeapYear(yy) == 1)
-        miladiDays[1] = 29;
+        gregorianDays[1] = 29;
 
     mm = 0;
-    while (dayCount > miladiDays[mm])
+    while (dayCount > gregorianDays[mm])
     {
-        dayCount = dayCount - miladiDays[mm];
+        dayCount = dayCount - gregorianDays[mm];
         mm = mm + 1;
     }
 
@@ -243,7 +243,7 @@ void shamsiToMiladi(int y, int m, int d, int *gYear, int *gMonth, int *gDay)
     *gDay = dayCount;
 }
 
-void miladiToShamsi(int year, int month, int day, int *sYear, int *sMonth, int *sDay)
+void gregorianToShamsi(int year, int month, int day, int *sYear, int *sMonth, int *sDay)
 {
     int countDays[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     int i, dayYear;
@@ -330,7 +330,7 @@ int intPart(double value)
     }
 }
 
-void miladiToLunar(int year, int month, int day, int *lYear, int *lMonth, int *lDay)
+void gregorianToLunar(int year, int month, int day, int *lYear, int *lMonth, int *lDay)
 {
     int juliandate;
 
@@ -370,8 +370,8 @@ void miladiToLunar(int year, int month, int day, int *lYear, int *lMonth, int *l
 
 void dateConversionMenu()
 {
-    printf("\n%s\n%s Back to menu!\n\n%s Shamsi to Miladi/Lunar\n\n%s Miladi to Shamsi/Lunar"
-           "\n\n%s Lunar to Shamsi/Miladi\n\n%s\n\nselect option: ",
+    printf("\n%s\n%s Back to menu!\n\n%s Shamsi to Gregorian/Lunar\n\n%s Gregorian to Shamsi/Lunar"
+           "\n\n%s Lunar to Shamsi/Gregorian\n\n%s\n\nselect option: ",
            BLACK_TEXT WHITE_BACKGROUND "          Date Conversion Menu          \n" RESET,
            GRAY_TEXT "[0]" RESET,
            GRAY_TEXT "[1]" RESET,
@@ -406,7 +406,7 @@ int dateConversion(void)
         {
             case 1:
                 clearScreen();
-                printf("\n%s", BLACK_TEXT WHITE_BACKGROUND "           Shamsi >> Miladi           \n" RESET);
+                printf("\n%s", BLACK_TEXT WHITE_BACKGROUND "           Shamsi >> Gregorian           \n" RESET);
                 printf("\n%s Back to menu!\n",
                        GRAY_TEXT "[0]" RESET);
                 printf("\n%s Shamsi Month is between %s and %s.\n",
@@ -455,10 +455,10 @@ int dateConversion(void)
                     break;
                 }
 
-                shamsiToMiladi(sYear, sMonth, sDay, &gYear, &gMonth, &gDay);
-                miladiToLunar(gYear, gMonth, gDay, &lYear, &lMonth, &lDay);
+                shamsiToGregorian(sYear, sMonth, sDay, &gYear, &gMonth, &gDay);
+                gregorianToLunar(gYear, gMonth, gDay, &lYear, &lMonth, &lDay);
                 clearScreen();
-                printf("\nConverted Miladi date: %s%d/%02d/%02d%s\n",
+                printf("\nConverted Gregorian date: %s%d/%02d/%02d%s\n",
                        ITALIC GRAY_TEXT,
                        gYear, gMonth, gDay,
                        RESET);
@@ -473,14 +473,14 @@ int dateConversion(void)
 
             case 2:
                 clearScreen();
-                printf("\n%s", BLACK_TEXT WHITE_BACKGROUND "           Miladi >> Shamsi           \n" RESET);
+                printf("\n%s", BLACK_TEXT WHITE_BACKGROUND "           Gregorian >> Shamsi           \n" RESET);
                 printf("\n%s Back to menu!\n",
                        GRAY_TEXT "[0]" RESET);
-                printf("\n%s Miladi Month is between %s and %s.\n",
+                printf("\n%s Gregorian Month is between %s and %s.\n",
                        GRAY_TEXT "{!}" RESET,
                        UNDERLINE GRAY_TEXT "1" RESET,
                        UNDERLINE GRAY_TEXT "12" RESET);
-                printf("\n%s Miladi Day is between %s and %s.\n",
+                printf("\n%s Gregorian Day is between %s and %s.\n",
                        GRAY_TEXT "{!}" RESET,
                        UNDERLINE GRAY_TEXT "1" RESET,
                        UNDERLINE GRAY_TEXT "31" RESET);
@@ -523,8 +523,8 @@ int dateConversion(void)
                     break;
                 }
 
-                miladiToShamsi(gYear, gMonth, gDay, &sYear, &sMonth, &sDay);
-                miladiToLunar(gYear, gMonth, gDay, &lYear, &lMonth, &lDay);
+                gregorianToShamsi(gYear, gMonth, gDay, &sYear, &sMonth, &sDay);
+                gregorianToLunar(gYear, gMonth, gDay, &lYear, &lMonth, &lDay);
                 clearScreen();
                 printf("\nConverted Shamsi date: %s%d/%02d/%02d%s\n",
                        ITALIC GRAY_TEXT,
@@ -577,13 +577,13 @@ void calculateAge(int birth_year, int birth_month, int birth_day)
 
     struct tm current_date = getCurrentDateAndTime();
 
-    int current_miladi_year = current_date.tm_year + 1900;
-    int current_miladi_month = current_date.tm_mon;
-    int current_miladi_day = current_date.tm_mday;
+    int current_gregorian_year = current_date.tm_year + 1900;
+    int current_gregorian_month = current_date.tm_mon;
+    int current_gregorian_day = current_date.tm_mday;
 
     int current_year, current_month, current_day;
-    miladiToShamsi(current_miladi_year, current_miladi_month, current_miladi_day,
-                   &current_year, &current_month, &current_day);
+    gregorianToShamsi(current_gregorian_year, current_gregorian_month, current_gregorian_day,
+                      &current_year, &current_month, &current_day);
 
     if (birth_month < 1 || birth_month > 12)
     {
@@ -634,12 +634,12 @@ void calculateAge(int birth_year, int birth_month, int birth_day)
     }
 
     char *days_of_week_shamsi[] = {"SHANBE", "YEKSHANBE", "DOSHANBE", "SESHANBE", "CHAHARSHANBE", "PANJESHANBE", "JOOMEH"};
-    char *days_of_week_miladi[] = {"SATURDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"};
+    char *days_of_week_gregorian[] = {"SATURDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"};
     printf("\n You were born on %s%s%s\n", ITALIC, GRAY_TEXT, days_of_week_shamsi[day_of_week_index]);
     printf("%s", RESET);
 
     int gYear, gMonth, gDay;
-    shamsiToMiladi(birth_year, birth_month, birth_day, &gYear, &gMonth, &gDay);
+    shamsiToGregorian(birth_year, birth_month, birth_day, &gYear, &gMonth, &gDay);
 
     birth_year = gYear;
     birth_month = gMonth;
@@ -653,10 +653,10 @@ void calculateAge(int birth_year, int birth_month, int birth_day)
 
     printf("\n Number of days passed since your birth: %s%s%d%s\n", ITALIC, GRAY_TEXT, days_lived, RESET);
 
-    printf("\n Miladi birth date: %s%d/%02d/%02d",
+    printf("\n Gregorian birth date: %s%d/%02d/%02d",
            ITALIC GRAY_TEXT,
            gYear, gMonth, gDay);
-    printf(" [%s%s%s]\n", ITALIC, GRAY_TEXT, days_of_week_miladi[day_of_week_index]);
+    printf(" [%s%s%s]\n", ITALIC, GRAY_TEXT, days_of_week_gregorian[day_of_week_index]);
 
     printf("\n%s\n\n", BLACK_TEXT WHITE_BACKGROUND "----------------------------------------------" RESET);
 }
@@ -753,21 +753,21 @@ void currentDate()
 
     struct tm current_date = getCurrentDateAndTime();
 
-    int current_miladi_year = current_date.tm_year + 1900;
-    int current_miladi_month = current_date.tm_mon;
-    int current_miladi_day = current_date.tm_mday;
+    int current_gregorian_year = current_date.tm_year + 1900;
+    int current_gregorian_month = current_date.tm_mon;
+    int current_gregorian_day = current_date.tm_mday;
 
     int current_year, current_month, current_day;
-    miladiToShamsi(current_miladi_year, current_miladi_month, current_miladi_day,
-                   &current_year, &current_month, &current_day);
-    miladiToLunar(current_miladi_year, current_miladi_month, current_miladi_day, &lYear, &lMonth, &lDay);
+    gregorianToShamsi(current_gregorian_year, current_gregorian_month, current_gregorian_day,
+                      &current_year, &current_month, &current_day);
+    gregorianToLunar(current_gregorian_year, current_gregorian_month, current_gregorian_day, &lYear, &lMonth, &lDay);
 
     printf("\n%s\n\n",
            BLACK_TEXT WHITE_BACKGROUND "                 Dates                " RESET);
     printf("   Current Shamsi Date: %s %d/%d/%d %s\n",
            ITALIC GRAY_TEXT, current_year, current_month, current_day ,RESET);
-    printf("\n   Current Miladi Date: %s %d/%d/%d %s\n",
-           ITALIC GRAY_TEXT, current_miladi_year, current_miladi_month, current_miladi_day ,RESET);
+    printf("\n   Current Gregorian Date: %s %d/%d/%d %s\n",
+           ITALIC GRAY_TEXT, current_gregorian_year, current_gregorian_month, current_gregorian_day , RESET);
     printf("\n   Current Lunar Date: %s %d/%d/%d %s\n",
            ITALIC GRAY_TEXT, lYear, lMonth, lDay ,RESET);
     printf("\n%s\n\n",
