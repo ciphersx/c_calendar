@@ -73,6 +73,14 @@ int readKeyboardInput()
                 {
                     return 2;
                 }
+                else if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_UP)
+                {
+                    return 3;
+                }
+                else if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_DOWN)
+                {
+                    return 4;
+                }
                 else if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_ESCAPE)
                 {
                     return 0;
@@ -877,19 +885,34 @@ int main(void)
 
                         arrowResult = readKeyboardInput();
 
-                        if (arrowResult == 1) {  // Left arrow
+                        if (arrowResult == 1)
+                        {
                             shamsi_month--;
-                            if (shamsi_month < 1) {
+                            if (shamsi_month < 1 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                            {
                                 shamsi_month = 12;
                                 shamsi_year--;
                             }
                             shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
-                        } else if (arrowResult == 2) {  // Right arrow
+                        }
+                        else if (arrowResult == 2 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                        {
                             shamsi_month++;
-                            if (shamsi_month > 12) {
+                            if (shamsi_month > 12)
+                            {
                                 shamsi_month = 1;
                                 shamsi_year++;
                             }
+                            shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
+                        }
+                        else if (arrowResult == 3 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                        {
+                            shamsi_year++;
+                            shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
+                        }
+                        else if (arrowResult == 4 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                        {
+                            shamsi_year--;
                             shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
                         }
                     } while (arrowResult != 0);
