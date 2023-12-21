@@ -621,10 +621,6 @@ void calculateAge(int birth_year, int birth_month, int birth_day)
     int birthdate_daycode = determineDaycode(birth_year, birth_month);
     int day_of_week_index = (birthdate_daycode + birth_day - 1) % 7;
 
-    printf("\n%s\n Your Age: %s%d years, %d months, %d days%s\n",
-           BLACK_TEXT WHITE_BACKGROUND "                  Age Result                  \n" RESET,
-           ITALIC GRAY_TEXT, age_years, age_months, age_days, RESET);
-
     if (age_years < 0)
     {
         clearScreen();
@@ -634,8 +630,6 @@ void calculateAge(int birth_year, int birth_month, int birth_day)
 
     char *days_of_week_shamsi[] = {"SHANBE", "YEKSHANBE", "DOSHANBE", "SESHANBE", "CHAHARSHANBE", "PANJESHANBE", "JOOMEH"};
     char *days_of_week_gregorian[] = {"SATURDAY", "SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY"};
-    printf("\n You were born on %s%s%s\n", ITALIC, GRAY_TEXT, days_of_week_shamsi[day_of_week_index]);
-    printf("%s", RESET);
 
     int gYear, gMonth, gDay;
     shamsiToGregorian(birth_year, birth_month, birth_day, &gYear, &gMonth, &gDay);
@@ -650,13 +644,16 @@ void calculateAge(int birth_year, int birth_month, int birth_day)
     int seconds_lived = difftime(current_time, birth_time);
     int days_lived = seconds_lived / (60 * 60 * 24);
 
+    printf("\n%s\n Your Age: %s%d years, %d months, %d days%s\n",
+           BLACK_TEXT WHITE_BACKGROUND "                  Age Result                  \n" RESET,
+           ITALIC GRAY_TEXT, age_years, age_months, age_days, RESET);
+    printf("\n You were born on %s%s%s\n", ITALIC, GRAY_TEXT, days_of_week_shamsi[day_of_week_index]);
+    printf("%s", RESET);
     printf("\n Number of days passed since your birth: %s%s%d%s\n", ITALIC, GRAY_TEXT, days_lived, RESET);
-
     printf("\n Gregorian birth date: %s%d/%02d/%02d",
            ITALIC GRAY_TEXT,
            gYear, gMonth, gDay);
     printf(" [%s%s%s]\n", ITALIC, GRAY_TEXT, days_of_week_gregorian[day_of_week_index]);
-
     printf("\n%s\n\n", BLACK_TEXT WHITE_BACKGROUND "----------------------------------------------" RESET);
 }
 
