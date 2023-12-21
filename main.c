@@ -371,12 +371,11 @@ void gregorianToLunar(int year, int month, int day, int *lYear, int *lMonth, int
 void dateConversionMenu()
 {
     printf("\n%s\n%s Back to menu!\n\n%s Shamsi to Gregorian/Lunar\n\n%s Gregorian to Shamsi/Lunar"
-           "\n\n%s Lunar to Shamsi/Gregorian\n\n%s\n\nselect option: ",
+           "\n\n%s\n\nselect option: ",
            BLACK_TEXT WHITE_BACKGROUND "          Date Conversion Menu          \n" RESET,
            GRAY_TEXT "[0]" RESET,
            GRAY_TEXT "[1]" RESET,
            GRAY_TEXT "[2]" RESET,
-           GRAY_TEXT "[3]" RESET,
            BLACK_TEXT WHITE_BACKGROUND "----------------------------------------" RESET);
 }
 
