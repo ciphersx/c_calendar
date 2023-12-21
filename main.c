@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <windows.h>
 
 #define BLACK_TEXT "\x1b[30m"
 #define RED_TEXT "\x1b[31m"
@@ -44,6 +45,37 @@ struct tm getCurrentDateAndTime(){
     time_t t = time(NULL);
     struct tm current_date = *localtime(&t);
     return current_date;
+}
+
+int readArrowKeys()
+{
+    HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+    DWORD NumInputs;
+    DWORD InputsRead;
+    INPUT_RECORD irInput;
+
+
+    SetConsoleMode(hInput, ENABLE_PROCESSED_INPUT | ENABLE_MOUSE_INPUT);
+
+    while (1) {
+        ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
+
+        if (InputsRead > 0)
+        {
+            if (irInput.EventType == KEY_EVENT &&
+                irInput.Event.KeyEvent.bKeyDown)
+            {
+                if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_LEFT)
+                {
+                    return 1;
+                }
+                else if (irInput.Event.KeyEvent.wVirtualKeyCode == VK_RIGHT)
+                {
+                    return 2;
+                }
+            }
+        }
+    }
 }
 
 void calendarMenu()
