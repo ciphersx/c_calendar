@@ -410,6 +410,13 @@ void calendar(int year, int month, int daycode)
            year,
             // Print a horizontal line with the calendar year
            " ----------------" RESET);
+    // Print info for the calendar navigation
+    printf("%s %s", ITALIC, GRAY_TEXT);
+    printf("\nRIGHT >> NEXT MONTH!\n");
+    printf("\nLEFT >> PREVIOUS MONTH!\n");
+    printf("\nUP >> NEXT YEAR!\n");
+    printf("\nDOWN >> PREVIOUS YEAR!\n");
+    printf("%s", RESET);
     // Prompt the user to press ESC to go back
     printf("\nPress ESC to go back..."); 
 }
