@@ -412,11 +412,12 @@ void calendar(int year, int month, int daycode)
            " ----------------" RESET);
     // Print info for the calendar navigation
     printf("%s %s", ITALIC, GRAY_TEXT);
-    printf("\nRIGHT >> NEXT MONTH!\n");
-    printf("\nLEFT >> PREVIOUS MONTH!\n");
-    printf("\nUP >> NEXT YEAR!\n");
-    printf("\nDOWN >> PREVIOUS YEAR!\n");
+    printf("\n        %s%s %s %s%s%s \n", RESET "RIGHT", ITALIC, GRAY_TEXT ">>", RESET, "NEXT MONTH!" ITALIC, GRAY_TEXT );
+    printf("\n        %s%s %s %s%s%s \n", RESET "LEFT", ITALIC, GRAY_TEXT ">>", RESET, "PREVIOUS MONTH!" ITALIC, GRAY_TEXT );
+    printf("\n        %s%s %s %s%s%s \n", RESET "UP", ITALIC, GRAY_TEXT ">>", RESET, "NEXT YEAR!" ITALIC, GRAY_TEXT );
+    printf("\n        %s%s %s %s%s%s \n", RESET "DOWN", ITALIC, GRAY_TEXT ">>", RESET, "PREVIOUS YEAR!" ITALIC, GRAY_TEXT );
     printf("%s", RESET);
+    printf("\n%s\n", BLACK_TEXT WHITE_BACKGROUND "--------------------------------------" RESET);
     // Prompt the user to press ESC to go back
     printf("\nPress ESC to go back..."); 
 }
