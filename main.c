@@ -303,7 +303,7 @@ int determineDaycode(int year, int month)
         daycode += 2;
     }
 
-    if (year == 1219)
+    if (year == 1219 || year == 1214 || year == 1213 || year == 1208)
     {
         // Adjust daycode by adding 2 and taking modulo 7
         daycode = (daycode + 2) % 7;
@@ -410,9 +410,8 @@ void calendar(int year, int month, int daycode)
            year,
             // Print a horizontal line with the calendar year
            " ----------------" RESET);
-
     // Prompt the user to press ESC to go back
-    printf("\nPress ESC to go back...");
+    printf("\nPress ESC to go back..."); 
 }
 
 /**
@@ -1343,32 +1342,53 @@ int main(void)
 
                         if (arrowResult == 1)
                         {
-                            shamsi_month--;
-                            if (shamsi_month < 1 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                            if (shamsi_year >= 1206)
+                            {
+                                shamsi_month--;
+                            }
+                            if (shamsi_month < 1)
                             {
                                 shamsi_month = 12;
                                 shamsi_year--;
                             }
+                            if (shamsi_year == 1205)
+                            {
+                                shamsi_year++;
+                            }
                             shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
                         }
-                        else if (arrowResult == 2 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                        else if (arrowResult == 2)
                         {
-                            shamsi_month++;
+                            if (shamsi_year <= 1498)
+                            {
+                                shamsi_month++;
+                            }
                             if (shamsi_month > 12)
                             {
                                 shamsi_month = 1;
                                 shamsi_year++;
                             }
+                            if (shamsi_year == 1499)
+                            {
+                                shamsi_year--;
+                            }
                             shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
                         }
-                        else if (arrowResult == 3 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                        else if (arrowResult == 3)
                         {
+                            if (shamsi_year == 1498)
+                            {
+                                shamsi_year--;
+                            }
                             shamsi_year++;
                             shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
                         }
-                        else if (arrowResult == 4 && shamsi_year >= 1206 && shamsi_year <= 1498)
+                        else if (arrowResult == 4)
                         {
-                            shamsi_year--;
+                            if (shamsi_year >= 1206)
+                            {
+                                shamsi_year--;
+                            }
                             shamsi_daycode = determineDaycode(shamsi_year, shamsi_month);
                         }
                     } while (arrowResult != 0);
