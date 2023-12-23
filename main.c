@@ -303,7 +303,13 @@ int determineDaycode(int year, int month)
         daycode += 2;
     }
 
-    if (year == 1219 || year == 1214 || year == 1213 || year == 1208)
+    if (year >= 1208 && year <= 1218 && year != 1211 && year != 1215)
+    {
+        // Adjust daycode by subtracting 1 and taking modulo 7
+        daycode = (daycode - 1) % 7;
+    }
+
+    if (year == 1219)
     {
         // Adjust daycode by adding 2 and taking modulo 7
         daycode = (daycode + 2) % 7;
