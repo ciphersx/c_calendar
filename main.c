@@ -283,7 +283,8 @@ int inputCalendarMonth(int year)
  * The function calculates the daycode using a formula based on the inputted year and the number of days in each month.
  * If the inputted year falls within a specific range (1206 to 1218), the daycode is adjusted by adding 2.
  * If the inputted year is 1219, the daycode is adjusted by adding 2 and then taking the modulo 7.
- * If the inputted year falls within a different range (1220 to 1299), the daycode is adjusted by adding 1 and then taking the modulo 7.
+ * If the inputted year falls within a different range (1220 to 1299),
+ * the daycode is adjusted by adding 1 and then taking the modulo 7.
  * Finally, the function iterates through each month before the inputted month
  and adjusts the daycode based on the number of days in each month.
  * The function returns the calculated daycode.
@@ -354,7 +355,8 @@ int determineLeapYear(int year)
  * This function displays the calendar for a given year and month.
  * It takes the calendar year, month, and daycode (day of the week) as parameters.
  * The function first determines if the inputted year is a leap year by calling the determineLeapYear() function.
- * If the year is a leap year, it sets the number of days in the 12th month (Esfand) to 29 in the days_in_shamsi_month array.
+ * If the year is a leap year,
+ * it sets the number of days in the 12th month (Esfand) to 29 in the days_in_shamsi_month array.
  * If the year is not a leap year, it sets the number of days in the 12th month to 30.
  * The function then prints the month name and the days of the week as column headers using printf().
  * It uses escape codes to set the text color to gray for the column headers.
@@ -639,9 +641,12 @@ int intPart(double value)
 
 /**
  * This function converts a given date in the Gregorian calendar to the Lunar calendar.
- * It takes the year, month, and day in the Gregorian calendar as parameters, as well as three pointers to integers to store the converted year, month, and day in the Lunar calendar.
+ * It takes the year, month, and day in the Gregorian calendar as parameters,
+ * as well as three pointers to integers to store the converted year,
+ * month, and day in the Lunar calendar.
  * The function calculates the Julian date based on the given Gregorian date.
- * If the Gregorian date is on or after October 15, 1582 (the start of the Gregorian calendar), it uses a formula to calculate the Julian date.
+ * If the Gregorian date is on or after October 15, 1582 (the start of the Gregorian calendar),
+ * it uses a formula to calculate the Julian date.
  * If the Gregorian date is before October 15, 1582, it uses a different formula to calculate the Julian date.
  * The function then performs a series of calculations to determine the corresponding date in the Lunar calendar.
  * Finally, the function stores the converted year, month, and day in the provided pointers.
@@ -697,7 +702,8 @@ void gregorianToLunar(int year, int month, int day, int *lYear, int *lMonth, int
 /**
  * This function displays the date conversion menu.
  * It prints the menu options for the user to select from.
- * The menu options include: going back to the main menu, converting from Shamsi (Solar Hijri) to Gregorian/Lunar, and converting from Gregorian to Shamsi/Lunar.
+ * The menu options include: going back to the main menu, converting from Shamsi (Solar Hijri) to Gregorian/Lunar,
+ * and converting from Gregorian to Shamsi/Lunar.
  * The function prompts the user to select an option.
  */
 void dateConversionMenu()
@@ -714,9 +720,11 @@ void dateConversionMenu()
 /**
  * This function converts a given date from one calendar system to another.
  * It takes the input date and the source and target calendar systems as parameters.
- * The function uses the appropriate conversion formulas and algorithms to calculate the equivalent date in the target calendar system.
+ * The function uses the appropriate conversion
+ * formulas and algorithms to calculate the equivalent date in the target calendar system.
  * It handles both forward and backward conversions, depending on the source and target calendars.
- * The function performs input validation to ensure that the input date is valid and within the range supported by the calendar systems.
+ * The function performs input validation to ensure
+ * that the input date is valid and within the range supported by the calendar systems.
  * It also checks for leap years and adjusts the number of days in February accordingly.
  * The function returns the converted date in the target calendar system.
  *
@@ -1216,9 +1224,12 @@ int age(void)
 /**
  * This function displays the current date in three different calendars: Shamsi, Gregorian, and Lunar.
  * It retrieves the current date and time using the getCurrentDateAndTime() function, which returns a struct tm object.
- * It then extracts the year, month, and day from the struct tm object representing the current date in the Gregorian calendar.
- * The function calls the gregorianToShamsi() function to convert the Gregorian date to the Shamsi date, storing the result in the variables current_year, current_month, and current_day.
- * The function also calls the gregorianToLunar() function to convert the Gregorian date to the Lunar date, storing the result in the variables lYear, lMonth, and lDay.
+ * It then extracts the year, month, and day
+ * from the struct tm object representing the current date in the Gregorian calendar.
+ * The function calls the gregorianToShamsi() function to convert the Gregorian date to the Shamsi date,
+ * storing the result in the variables current_year, current_month, and current_day.
+ * The function also calls the gregorianToLunar() function to convert the Gregorian date to the Lunar date,
+ * storing the result in the variables lYear, lMonth, and lDay.
  * Finally, the function prints the current dates in the Shamsi, Gregorian, and Lunar calendars using printf statements.
  * It also prompts the user to press Enter to go back to the menu and waits for user input.
  */
@@ -1268,11 +1279,13 @@ void currentDate()
  * It displays a menu to the user and takes their input to perform various operations.
  * The function uses a do-while loop to continuously display the menu until the user chooses to quit.
  * It also handles input validation to ensure that the user enters valid choices and integers.
- * The function calls other functions based on the user's choice to perform different operations like calendar, age calculation, date conversion, and displaying the current date.
+ * The function calls other functions based on the user's choice to perform different operations like calendar,
+ * age calculation, date conversion, and displaying the current date.
  * After each operation, the function waits for the user to press Enter before displaying the menu again.
  * The function uses a switch statement to execute different code blocks based on the user's choice.
  * It also clears the screen before displaying the menu to provide a clean user interface.
- * If the user enters an invalid choice or invalid input, appropriate error messages are displayed and the function prompts the user to try again.
+ * If the user enters an invalid choice or invalid input,
+ * appropriate error messages are displayed and the function prompts the user to try again.
  * The function continues to display the menu until the user chooses to quit.
  *
  * @return 0 indicating successful program execution.
